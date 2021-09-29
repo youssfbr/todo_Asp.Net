@@ -20,9 +20,8 @@ namespace Application.Controllers
         }
 
         public IActionResult Index()
-        {
-            var teste = _todoRepository.GetAll();
-            return View();
+        {            
+            return View(_todoRepository.GetAll());
         }
 
         public IActionResult Privacy()
