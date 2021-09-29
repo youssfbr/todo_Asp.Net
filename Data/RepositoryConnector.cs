@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Data
 {
@@ -12,10 +13,24 @@ namespace Data
         
         public string GetConnection()
         {
-            return _configuration
+             var a = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var b = DotNetEnv.Env.GetString("DATABASE_URL");            
+
+            System.Console.WriteLine("teste");
+            System.Console.WriteLine(a);            
+            System.Console.WriteLine(b);
+
+            var c = _configuration.GetConnectionString("DATABASE_URL");
+
+            return Environment.GetEnvironmentVariable("DATABASE_URL");
+
+
+            /*return _configuration
                         .GetSection("Connections")
-                        .GetSection("ConnecionString")
-                        .Value;
+                        .GetSection("ConnectionString")
+                        .Value;*/
+
+                        
         }
     }
 }

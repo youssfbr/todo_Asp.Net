@@ -2,11 +2,7 @@
 using Entities;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System;
 using System.Data.SqlClient;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 
 namespace Data
