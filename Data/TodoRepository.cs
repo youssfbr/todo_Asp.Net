@@ -12,7 +12,14 @@ namespace Data
         public TodoRepository(IConfiguration configuration) : base(configuration) { }
         public void Add(ToDo obj)
         {
-            throw new System.NotImplementedException();
+            DynamicParameters pam = new DynamicParameters();
+            pam.Add("@Tarefa", obj.Tarefa);
+
+            string sql = "INSERT INTO Todo (Tarefa) VALUES(@Tarefa)";
+            using (var con = new SqlConnection(base.GetConnection()))
+            {
+                con.Execute(sql, pam);
+            }
         }
 
         public ToDo Get(int id)
@@ -24,7 +31,8 @@ namespace Data
         {
             IEnumerable<ToDo> retorno;
             string sql = "SELECT * FROM Todo";
-            using (var con = new SqlConnection(base.GetConnection()))
+
+            using(var con = new SqlConnection(base.GetConnection()))
             {
                 retorno = con.Query<ToDo>(sql);
             }

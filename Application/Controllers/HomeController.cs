@@ -29,6 +29,13 @@ namespace Application.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Cadastrar(Entities.ToDo obj)
+        {
+            _todoRepository.Add(obj);
+            return View("Index", _todoRepository.GetAll());
+        }
+
         public IActionResult Privacy()
         {
             return View();
