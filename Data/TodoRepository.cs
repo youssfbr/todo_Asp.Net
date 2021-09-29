@@ -1,11 +1,13 @@
 ﻿using Data.Interfaces;
 using Entities;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace Data
 {
-    public class TodoRepository : ITodoRepository
+    public class TodoRepository : RepositoryConnector, ITodoRepository
     {
+        public TodoRepository(IConfiguration configuration) : base(configuration) { }
         public void Add(ToDo obj)
         {
             throw new System.NotImplementedException();
