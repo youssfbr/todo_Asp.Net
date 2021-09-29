@@ -24,6 +24,11 @@ namespace Application.Controllers
             return View(_todoRepository.GetAll());
         }
 
+        public IActionResult Cadastrar()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
