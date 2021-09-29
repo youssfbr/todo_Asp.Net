@@ -2,6 +2,12 @@
 using Entities;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System;
+using System.Data.SqlClient;
+using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using Dapper;
 
 namespace Data
 {
@@ -20,7 +26,13 @@ namespace Data
 
         public IEnumerable<ToDo> GetAll()
         {
-            throw new System.NotImplementedException();
+            IEnumerable<ToDo> retorno;
+            string sql = "SELECT * FROM Todo";
+            using (var con = new SqlConnection(base.GetConnection()))
+            {
+                retorno = con.Query<ToDo>(sql);
+            }
+            return retorno;
         }
 
         public void Remove(ToDo obj)

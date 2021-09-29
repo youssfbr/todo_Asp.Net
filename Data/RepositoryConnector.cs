@@ -1,14 +1,21 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
     public class RepositoryConnector
     {
-        public IConfiguration
+        public IConfiguration _configuration;
+        public RepositoryConnector(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        
+        public string GetConnection()
+        {
+            return _configuration
+                        .GetSection("Connections")
+                        .GetSection("ConnecionString")
+                        .Value;
+        }
     }
 }
