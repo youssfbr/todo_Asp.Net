@@ -49,6 +49,18 @@ namespace Application.Controllers
             return View("Index", _todoRepository.GetAll());
         }
 
+        public IActionResult Remover(int id)
+        {
+            Entities.ToDo todo = _todoRepository.Get(id);
+            return View(todo);
+        }
+                
+        public IActionResult ConfirmaRemover(int id)
+        {
+            _todoRepository.Remove(_todoRepository.Get(id));
+            return View("Index", _todoRepository.GetAll());
+        }
+
         public IActionResult Privacy()
         {
             return View();

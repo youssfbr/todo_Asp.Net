@@ -47,7 +47,12 @@ namespace Data
 
         public void Remove(ToDo obj)
         {
-            throw new System.NotImplementedException();
+            string sql = $"DELETE FROM Todo WHERE Id = {obj.Id}";
+
+            using(var con = new SqlConnection(base.GetConnection()))
+            {
+                con.Execute(sql);
+            }
         }
 
         public void Update(ToDo obj)
