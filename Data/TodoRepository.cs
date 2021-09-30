@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Dapper;
+using System.Linq;
 
 namespace Data
 {
@@ -24,7 +25,12 @@ namespace Data
 
         public ToDo Get(int id)
         {
-            throw new System.NotImplementedException();
+            string sql = $"SELECT * FROM Todo WHERE Id = {id}";
+            
+            using (var con = new SqlConnection(base.GetConnection()))
+            {
+                return con.Query<ToDo>(sql).FirstOrDefault();
+            }
         }
 
         public IEnumerable<ToDo> GetAll()
@@ -46,7 +52,17 @@ namespace Data
 
         public void Update(ToDo obj)
         {
-            throw new System.NotImplementedException();
+            string sql = $@"UPDATE Todo 
+                        SET Tarefa = @Tarefa
+                        WHERE Id = {obj.Id}";
+
+            DynamicParameters pam = new DynamicParameters();
+            pam.Add("@Tarefa", obj.Tarefa);
+
+            using(var con = new SqlConnection(base.GetConnection()))
+            {
+                con.Execute(sql, pam);
+            }
         }
     }
 }
